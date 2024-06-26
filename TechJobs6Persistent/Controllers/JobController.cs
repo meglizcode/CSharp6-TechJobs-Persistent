@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,10 +29,16 @@ namespace TechJobs6Persistent.Controllers
 
             return View(jobs);
         }
-
+        
+//     This method needs to contain a list of Employer objects which it pulls from the Employers dbContext.
+//     This method needs to create an instance of the AddJobViewModel which is passed the list of employer objects.
+//     Pass an instance of AddJobViewModel to the view.
         public IActionResult Add()
         {
-            return View();
+            // Refrence Index + Create 
+            List<Employer> employers = context.Employers.ToList();
+            AddJobViewModel addJobViewModel = new AddJobViewModel(employers);
+            return View(addJobViewModel);
         }
 
         [HttpPost]
